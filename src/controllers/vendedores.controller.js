@@ -24,6 +24,7 @@ export const postVendedores = async (req, res) => {
         Contraseña
     })
 }
+//puta tienda de mierda
 
 export const putVendedores = async (req, res) => {
     const {idVendedor} = req.params
