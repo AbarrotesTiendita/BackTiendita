@@ -23,7 +23,12 @@ export const postVendedores = async (req, res) => {
         Nom_Vendedor,
         Contraseña
     })
+<<<<<<< HEAD
 } 
+
+
+
+>>>>>>> 9fb6352ebc737ee79e8f569ba8588908c0958be8
 
 export const putVendedores = async (req, res) => {
     const {idVendedor} = req.params

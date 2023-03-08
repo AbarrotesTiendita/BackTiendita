@@ -15,6 +15,11 @@ export const getProducto = async (req, res) => {
     res.json(rows)
 }
 
+export const putProductos = async (req, res) => {
+    const {Codigo} = req.params
+    const {}
+}
+
 export const deleteProductos = async (req, res) => {
     const [result] = await pool.query('DELETE FROM producto WHERE Codigo = ?', [req.params.id])
     
