@@ -23,18 +23,13 @@ export const postVendedores = async (req, res) => {
         Nom_Vendedor,
         Contraseña
     })
-<<<<<<< HEAD
 } 
-
-
-
->>>>>>> 9fb6352ebc737ee79e8f569ba8588908c0958be8
 
 export const putVendedores = async (req, res) => {
     const {idVendedor} = req.params
     const {Nom_Vendedor, Contraseña} = req.body
 
-    const [result] = await pool.query('UPDATE vendedor SET Nom_Vendedor = ?, Contraseña = sha1(?) WHERE idVendedor = ?', [Nom_Vendedor, Contraseña, idVendedor])
+    const [result] = await pool.query('UPDATE vendedor SET Nom_Vendedor = IFNULL(?, Nom_Vendedor), Contraseña = IFNULL(sha1(?), Contraseña) WHERE idVendedor = ?', [Nom_Vendedor, Contraseña, idVendedor])
 
     console.log(result)
 

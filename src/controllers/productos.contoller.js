@@ -17,7 +17,17 @@ export const getProducto = async (req, res) => {
 
 export const putProductos = async (req, res) => {
     const {Codigo} = req.params
-    const {}
+    const {Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria} = req.body
+
+    const [result] = await pool.query('UPDATE producto SET Nom_Producto = IFNULL(?, Nom_Producto), Precio_Compra = IFNULL(?, Precio_Compra), Precio_Venta = IFNULL(?, Precio_Venta), Stock = IFNULL(?, Stock), idProveedor = IFNULL(?, idProveedor), idCategoria = IFNULL(?, idCategoria) WHERE Codigo = ?', [Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria, Codigo])
+
+    console.log(result)
+
+    if(result === 0) return res.status(404).json({
+        message:'Producto no actualizado'
+    })
+
+    res.json('Actualizado')
 }
 
 export const deleteProductos = async (req, res) => {
