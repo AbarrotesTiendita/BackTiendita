@@ -1,5 +1,10 @@
 import { pool } from '../db.js'
 
+export const getInvercion = async (req, res) => {
+    const [rows]= await pool.query('SELECT SUM(Precio_Compra) AS Invercion FROM producto')
+    res.json(rows)
+}
+
 export const getProductos = async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM producto')
     res.json(rows)
