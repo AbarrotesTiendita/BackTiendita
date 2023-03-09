@@ -5,10 +5,10 @@ const router = Router()
 
 router.get('/productos', getProductos)
 
-router.get('/productos/:Codigo', getProducto)
+router.get('/producto/:id', getProducto)
 
-router.patch('/productos/:Codigo', putProductos)
+router.patch('/productos/:id', putProductos)
 
-router.delete('/productos/:Codigo', deleteProductos)
+router.delete('/productos/:id', deleteProductos)
 
 export default router
