@@ -5,6 +5,11 @@ export const getInvercion = async (req, res) => {
     res.json(rows)
 }
 
+export const getAprox = async (req, res) => {
+    const [rows] = await pool.query('SELECT SUM(Precio_Venta) AS Ganacias FROM producto')
+    res.json(rows)
+}
+
 export const getProductos = async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM producto')
     res.json(rows)
