@@ -11,7 +11,7 @@ router.get('/invercion', getInvercion)
 
 router.get('/Aproximadas', getAprox)
 
-router.patch('/productos/:id', putProductos)
+router.patch('/productos/:Codigo', putProductos)
 
 router.delete('/productos/:id', deleteProductos)
 
