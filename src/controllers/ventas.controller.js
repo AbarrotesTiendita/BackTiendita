@@ -11,6 +11,17 @@ export const getActuales = async (req, res) => {
     }
 }
 
+export const getVentas = async (req, res) => {
+    try {
+    const [rows] = await pool.query('SELECT count(*) +1 AS Ventas FROM venta')
+    res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
 export const postVentas = async (req, res) => {
     const {idOperacion, idVendedor, fecha_hora, Total} = req.body
     try {

@@ -47,6 +47,26 @@ export const getProducto = async (req, res) => {
     }
 }
 
+export const postProductos = async (req, res) => {
+    const {Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria} = req.body
+    try {
+    const [rows] = await pool.query('insert into producto (Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria) values(?, ?, ?, ?, ?, ?, ?)',[Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria])
+    res.send({
+        Codigo, 
+        Nom_Producto, 
+        Precio_Compra, 
+        Precio_Venta, 
+        Stock, 
+        idProveedor, 
+        idCategoria
+    })
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
 export const putProductos = async (req, res) => {
     const {Codigo} = req.params
     const {Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria} = req.body
