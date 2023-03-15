@@ -39,4 +39,4 @@ export const deleteCategoria = async (req, res) => {
             message:'Algo salio mal'
         })
     }
-}
+}  

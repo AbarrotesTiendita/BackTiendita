@@ -58,6 +58,23 @@ export const putVendedores = async (req, res) => {
     }
 }
 
+export const putPermisos = async (req, res) => {
+    const {idVendedor} = req.params
+    const {idVendedor_Permisos} = req.body
+    try {
+    const [result] = await pool.query('UPDATE vendedor SET idVendedor_Permisos = ? WHERE idVendedor = ?', [idVendedor_Permisos, idVendedor])
+    console.log(result)
+    if (result === 0) return res.status(404).json({
+        message:'Permiso no actualizado'
+    })
+    res.json('Actualizado')
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
 export const deleteVendedores = async (req, res) => {
     try {
     const result = await pool.query('DELETE FROM vendedor WHERE idVendedor = ?', [req.params.id])
