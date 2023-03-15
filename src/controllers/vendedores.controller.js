@@ -87,4 +87,4 @@ export const deleteVendedores = async (req, res) => {
             message:'Algo salio mal'
         }) 
     }
-}
+} 
