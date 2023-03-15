@@ -23,12 +23,11 @@ export const getVentas = async (req, res) => {
 }
 
 export const postVentas = async (req, res) => {
-    const {idOperacion, idVendedor, fecha_hora, Total} = req.body
+    const {idVendedor, fecha_hora, Total} = req.body
     try {
-    const [rows] = await pool.query('INSERT INTO venta (idOperacion, idVendedor, fecha_hora, Total) VALUES (?, ?, ?, ?)', [idOperacion, idVendedor, fecha_hora, Total])
+    const [rows] = await pool.query('INSERT INTO venta (idVendedor, fecha_hora, Total) VALUES (?, NOW(), ?)', [idVendedor, fecha_hora, Total])
     res.send({
         id: rows.insertId,
-        idOperacion, 
         idVendedor, 
         fecha_hora, 
         Total
@@ -39,6 +38,7 @@ export const postVentas = async (req, res) => {
         })
     }
 }
+
 
 export const putVentas = async (req, res) => {
     const {idVenta} = req.params
