@@ -5,7 +5,7 @@ const router = Router()
 
 router.get('/productos', getProductos)
 
-router.get('/producto/:id', getProducto)
+router.get('/productos/:id', getProducto)
 
 router.get('/invercion', getInvercion)
 
