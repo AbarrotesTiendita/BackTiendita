@@ -9,7 +9,7 @@ router.get('/productos/:id', getProducto)
 
 router.get('/invercion', getInvercion)
 
-router.get('/Aproximadas', getAprox)
+router.get('/aproximadas', getAprox)
 
 router.post('/productos', postProductos)
 

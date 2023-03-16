@@ -3,7 +3,7 @@ import { getActuales, postVentas, putVentas, getVentas, getDias, getTotal } from
 
 const router = Router()
 
-router.get('/Actuales', getActuales)
+router.get('/actuales', getActuales)
 
 router.post('/ventas', postVentas)
 
