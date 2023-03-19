@@ -1,11 +1,18 @@
 import { pool } from '../db.js'
+const cors = require('cors');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const config = require("../config");
+const verifyToken = require("./verifiToken");
+const crypto = require('crypto');
+
 
 export const postUsuarios = async (req, resp, next) => {
     const reqData={};
     var username = req.body.user;
     var password = req.body.pass;
     
-    database.query('select * from vendedor where Nom_Vendedor =? and Contraseña =sha1(?)',[username,password],(err,rows,field)=>{
+    pool.query('select * from vendedor where Nom_Vendedor =? and Contraseña =sha1(?)',[username,password],(err,rows,field)=>{
         console.log(rows);
         if(!err){
             const hash=crypto.createHash('sha1').update(password).digest('hex');
