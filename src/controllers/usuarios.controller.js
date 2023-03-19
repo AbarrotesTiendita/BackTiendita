@@ -2,10 +2,10 @@ import { pool } from '../db.js'
 
 export const postUsuarios = async (req, res, next) => {
     const reqData={};
-    var username = re.body.username;
-    var password = re.body.password;
+    var username = re.body.user;
+    var password = re.body.pass;
     
-    database.query('select * from vendedor where username=? and password=sha1(?)',[username,password],(err,rows,field)=>{
+    database.query('select * from vendedor where Nom_Vendedor=? and Contraseña=sha1(?)',[username,password],(err,rows,field)=>{
         console.log(rows);
         if(!err){
             const hash=crypto.createHash('sha1').update(password).digest('hex');
