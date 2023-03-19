@@ -9,9 +9,9 @@ export const postUsuarios = async (req, res, next) => {
         console.log(rows);
         if(!err){
             const hash=crypto.createHash('sha1').update(password).digest('hex');
-            if(rows.leghth == 1 && rows[0].username == username && rows[0].password == hash){
+            if(rows.leghth == 1 && rows[0].Nom_Vendedor == username && rows[0].Contraseña== hash){
                 const user = rows[0];
-                jwt.sign({id: user.id}, config.secret,{expiresIn:"24h"},(err,token)=>{
+                jwt.sign({id: vendedor.idVendedor}, config.secret,{expiresIn:"24h"},(err,token)=>{
                     resp.json({token: token})
                 });
             }
