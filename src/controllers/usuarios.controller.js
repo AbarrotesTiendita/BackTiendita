@@ -3,7 +3,7 @@ const cors = require('cors');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
-const verifyToken = require("./verifiToken");
+const verifyToken = require("./verifyToken");
 const crypto = require('crypto');
 
 
@@ -18,7 +18,7 @@ export const postUsuarios = async (req, resp, next) => {
             const hash=crypto.createHash('sha1').update(password).digest('hex');
             if(rows.length == 1 && rows[0].Nom_Vendedor == username && rows[0].Contraseña== hash){
                 const user = rows[0];
-                jwt.sign({id: user.idVendedor}, config.secret,{expiresIn:"24h"},(err,token)=>{
+                jwt.sign({id: user.idVendedor}, 'mysecretkey',{expiresIn:"24h"},(err,token)=>{
                     resp.json({token: token})
                 });
             }
