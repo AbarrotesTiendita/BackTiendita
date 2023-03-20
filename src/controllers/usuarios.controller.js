@@ -11,7 +11,6 @@ export const postUsuarios = async (req, resp, next) => {
     pool.query('select * from vendedor where Nom_Vendedor =? and Contraseña =sha1(?)',[username,password],(err,rows,field)=>{
         console.log(rows);
         if(!err){
-            const hash=crypto.createHash('sha1').update(password).digest('hex');
             if(rows.length == 1 && rows[0].Nom_Vendedor == username && rows[0].Contraseña== hash){
                 const user = rows[0];
                 jwt.sign({id: user.idVendedor}, 'mysecretkey',{expiresIn:"24h"},(err,token)=>{
