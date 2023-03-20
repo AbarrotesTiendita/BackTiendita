@@ -2,8 +2,6 @@ import { pool } from '../db.js'
 const cors = require('cors');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const config = require("../config");
-const verifyToken = require("./verifyToken");
 const crypto = require('crypto');
 
 
