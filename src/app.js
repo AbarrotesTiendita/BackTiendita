@@ -19,4 +19,5 @@ app.use('/api', ventasRoutes)
 app.use('/api', reporteRoutes)
 app.use(indexRoutes)
 
+
 export default app
