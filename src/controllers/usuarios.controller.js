@@ -1,29 +1,25 @@
 import { pool } from '../db.js'
 const jwt = require("jsonwebtoken");
-const crypto = require('crypto');
+const bcrypt = require("bcrypt");
 
 
 export const postUsuarios = async (req, resp, next) => {
     const reqData={};
-    var username = req.body.user;
-    var password = req.body.pass;
-    
-    pool.query('select * from vendedor where Nom_Vendedor =? and Contraseña =sha1(?)',[username,password],(err,rows,field)=>{
-        console.log(rows);
-        if(!err){
-            if(rows.length == 1 && rows[0].Nom_Vendedor == username && rows[0].Contraseña== hash){
-                const user = rows[0];
-                jwt.sign({id: user.idVendedor}, 'mysecretkey',{expiresIn:"24h"},(err,token)=>{
-                    resp.json({token: token})
-                });
-            }
-            else{
-                resp.sendStatus(403);
-            }
+    const username = req.body.Nom_Vendedor;
+    const password = req.body.Contraseña;
+    try {
+        const [rows] = await pool.query('SELECT * FROM vendedor WHERE Nom_Vendedor = ?', [username]);
+        if(rows.length == 0 || !(await bcryptjs.compare(password, rows[0].Contraseña))){
+            const user = rows[0];
+            const token = jwt.sign({ id: user.idVendedor }, 'mysecretkey', { expiresIn: '24h' });
+            resp.json({ token });
+        } else {
+            resp.sendStatus(403);
         }
-        else{
-            resp.sendStatus(503)
-        }
-    });
-}
+    } catch (err) {
+        console.error(err);
+        resp.sendStatus(503);
+    }
+};
+
 
