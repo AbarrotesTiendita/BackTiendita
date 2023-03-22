@@ -44,7 +44,7 @@ export const putProveedores = async (req, res) => {
     const {Nom_Proveedor, Contacto, Descripcion_Proveedor} = req.body
     try {
     const [result] = await pool.query('UPDATE proveedor SET Nom_Proveedor = IFNULL(?, Nom_Proveedor), Contacto = IFNULL(?, Contacto), Descripcion_Proveedor = IFNULL(?, Descripcion_Proveedor) WHERE idProveedor = ?', [Nom_Proveedor, Contacto, Descripcion_Proveedor, idProveedor])
-    console.log(result)
+    console.log(result)  
     if (result === 0) return res.status(404).json({
         message:'Proveedor no actualizado'
     })
@@ -55,7 +55,7 @@ export const putProveedores = async (req, res) => {
         })
     }
 }
-
+ 
 export const deleteProveedores = async (req, res) => {
     try {
     const result = await pool.query('DELETE FROM proveedor WHERE idProveedor = ?', [req.params.id])
