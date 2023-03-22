@@ -15,7 +15,7 @@ export const getUsuarios = async (req,res)=>{
             const hash = crypto.createHash('sha1').update(Contraseña).digest('hex');
             if(rows.legth == 1 && rows[0].Nom_Vendedor == Nom_Vendedor && rows[0].Contraseña == hash){
                 const user = rows[0];
-                jwt.sign({user: Nom_Vendedor}, 'acceskey', {expiresIn: '24h'}, (err,token)=>{
+                jwt.sign({user: user}, 'acceskey', {expiresIn: '24h'}, (err,token)=>{
                     res.json({token: token})
                 })
             }
