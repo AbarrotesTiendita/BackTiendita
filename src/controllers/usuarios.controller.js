@@ -4,28 +4,26 @@ const jwt = require("jsonwebtoken");
 
 
 
-export const postUsuarios = async (req,res)=>{
-    const reqData= {};
-    var Nom_Vendedor= req.body.Nom_Vendedor;
-    var Contraseña = req.body.Contraseña;
+export const postUsuarios = async (req, res) => {
+    const Nom_Vendedor = req.body.Nom_Vendedor;
+    const Contraseña = req.body.Contraseña;
 
-    pool.query('select * from vendedores where Nom_Vendedor = ? and Contraseña = (sha1)',[Nom_Vendedor, Contraseña], (err,rows,fields)=>{
+    pool.query('select * from vendedores where Nom_Vendedor = ? and Contraseña = sha1(?)', [Nom_Vendedor, Contraseña], (err, rows, fields) => {
         console.log(rows);
-        if(!err){
+        if (!err) {
             const hash = crypto.createHash('sha1').update(Contraseña).digest('hex');
-            if(rows.legth == 1 && rows[0].Nom_Vendedor == Nom_Vendedor && rows[0].Contraseña == hash){
+            if (rows.length == 1 && rows[0].Nom_Vendedor == Nom_Vendedor && rows[0].Contraseña == hash) {
                 const user = rows[0];
-                jwt.sign({user: user}, 'acceskey', {expiresIn: '24h'}, (err,token)=>{
-                    res.json({token: token})
+                jwt.sign({ user: user }, 'acceskey', { expiresIn: '24h' }, (err, token) => {
+                    res.json({ token: token })
                 })
             }
-            else{
+            else {
                 res.sendStatus(403);
             }
         }
-        else{
+        else {
             res.sendStatus(503);
         }
     })
 }
-
