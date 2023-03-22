@@ -56,7 +56,7 @@ export const putProveedores = async (req, res) => {
     }
 }
  
-export const deleteProveedores = async (req, res) => {
+export const deleteProveedor = async (req, res) => {
     try {
     const result = await pool.query('DELETE FROM proveedor WHERE idProveedor = ?', [req.params.id])
     if (result.affectedRows <= 0) return res.status(404).json({
