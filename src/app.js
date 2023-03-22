@@ -7,8 +7,6 @@ import ventasRoutes from './routes/ventas.routes.js'
 import reporteRoutes from './routes/reporte.routes.js'
 import usuariosRoutes from './controllers/usuarios.controller.js'
 
-import {PORT} from './config.js'
-
 const app = express()
 
 app.use(express.json())
