@@ -1,8 +1,0 @@
-import { Router } from 'express'
-import { postUsuarios } from '../controllers/usuarios.controller.js'
-
-const router = Router()
-
-router.post('/usuarios', postUsuarios)
-
-export default router
