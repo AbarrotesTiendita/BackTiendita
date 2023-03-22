@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 
 
-export const getUsuarios = async (req,res)=>{
+export const postUsuarios = async (req,res)=>{
     const reqData= {};
     var Nom_Vendedor= req.body.Nom_Vendedor;
     var Contraseña = req.body.Contraseña;
