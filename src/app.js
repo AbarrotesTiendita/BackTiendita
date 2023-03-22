@@ -5,6 +5,7 @@ import categoriaRoutes from './routes/categoria.routes.js'
 import indexRoutes from './routes/index.routes.js'
 import ventasRoutes from './routes/ventas.routes.js'
 import reporteRoutes from './routes/reporte.routes.js'
+import usuariosRoutes from './controllers/usuarios.controller.js'
 
 import {PORT} from './config.js'
 
@@ -17,6 +18,7 @@ app.use('/api', productosRoutes)
 app.use('/api', categoriaRoutes)
 app.use('/api', ventasRoutes)
 app.use('/api', reporteRoutes)
+app.use('/api', usuariosRoutes)
 app.use(indexRoutes)
 
 
