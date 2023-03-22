@@ -5,7 +5,7 @@ import categoriaRoutes from './routes/categoria.routes.js'
 import indexRoutes from './routes/index.routes.js'
 import ventasRoutes from './routes/ventas.routes.js'
 import reporteRoutes from './routes/reporte.routes.js'
-import usuariosRoutes from './controllers/usuarios.controller.js'
+import usuariosRoutes from './routes/usuarios.routes.js'
 
 const app = express()
 
