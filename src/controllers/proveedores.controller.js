@@ -55,6 +55,7 @@ export const putProveedores = async (req, res) => {
         })
     }
 }
+
  
 export const deleteProveedor = async (req, res) => {
     try {
