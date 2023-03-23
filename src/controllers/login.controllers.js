@@ -3,41 +3,32 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const login = async (req, resp) => {
-  const nom_vendedor = req.body.nom_vendedor;
-  const password = req.body.password;
+  const { Nom_Vendedor, Contraseña } = req.body;
 
   pool.query(
-    "SELECT * FROM vendedor WHERE nom_vendedor = ?",
-    [nom_vendedor],
+    "SELECT * FROM vendedor WHERE Nom_Vendedor = ?",
+    [Nom_Vendedor],
     async (err, rows, fields) => {
-      if (!err) {
-        if (rows.length === 1) {
-          const match = await bcrypt.compare(password, rows[0].contraseña);
-          if (match) {
-            const user = rows[0];
-            jwt.sign(
-              { user: user },
-              "accessKey",
-              (err, token) => {
-                if (err) {
-                  resp.sendStatus(500);
-                } else {
-                  resp.json({ token: token });
-                }
-              }
-            );
-          } else {
-            resp.sendStatus(403);
-          }
-        } else {
-          resp.sendStatus(403);
-        }
+      if (err) {
+        console.log(err);
+        return resp.sendStatus(503);
+      }
+
+      if (rows.length !== 1) {
+        return resp.sendStatus(403);
+      }
+
+      const user = rows[0];
+      const match = await bcrypt.compare(Contraseña, user.Contraseña);
+
+      if (match) {
+        const token = jwt.sign({ user }, "accessKey");
+        return resp.json({ token });
       } else {
-        resp.sendStatus(503);
+        return resp.sendStatus(403);
       }
     }
   );
 };
 
 export default login;
-
