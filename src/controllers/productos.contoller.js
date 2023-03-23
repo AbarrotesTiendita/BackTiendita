@@ -11,6 +11,7 @@ export const getInvercion = async (req, res) => {
     }
 }
 
+
 export const getAprox = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT SUM(Precio_Venta) AS Ganacias FROM producto')
