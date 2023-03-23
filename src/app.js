@@ -6,7 +6,7 @@ import indexRoutes from './routes/index.routes.js'
 import ventasRoutes from './routes/ventas.routes.js'
 import reporteRoutes from './routes/reporte.routes.js'
 import usuariosRoutes from './routes/usuarios.routes.js'
-import loginRoutes from './routes/usuarios.routes.js'  
+
 
 const app = express()
 
@@ -18,6 +18,7 @@ app.use('/api',categoriaRoutes)
 app.use('/api',ventasRoutes)
 app.use('/api',reporteRoutes)
 app.use('/api',loginRoutes)
+app.use('/api',usuariosRoutes)
 app.use(indexRoutes)
 
 export default app
