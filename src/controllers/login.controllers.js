@@ -7,7 +7,7 @@ export const login = async (req, resp,) => {
   var Contraseña = req.body.Contraseña;
 
   pool.query(
-    "select * from vendedores where Nom_Vendedor = ? and Contraseña = sha1(?)",
+    "select * from vendedore where Nom_Vendedor = ? and Contraseña = sha1(?)",
     [Nom_Vendedor, Contraseña],
     (err, rows, fields) => {
       console.log(rows);
