@@ -8,10 +8,11 @@ import reporteRoutes from './routes/reporte.routes.js'
 import proveedoresRoutes from './routes/proveedores.routes.js'
 import usuariosRoutes from './routes/usuarios.routes.js'
 
-import {PORT} from './config.js'  
+import cors from 'cors'
+
 
 const app = express()
-
+app.use(cors());
 app.use(express.json())
 app.use('/api',vendedoresRoutes)
 app.use('/api',productosRoutes)
