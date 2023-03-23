@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getProveedores, getProveedor, postProveedores, putProveedores, deleteProveedor } from '../controllers/proveedores.controller.js'
+import { getProveedores, getProveedor, postProveedores, putProveedores, deleteProveedores } from '../controllers/proveedores.controller.js'
 
 const router = Router()
 
@@ -11,6 +11,6 @@ router.post('/proveedores', postProveedores)
 
 router.patch('/proveedores/:idProveedor', putProveedores)
 
-router.delete('/proveedores/:id', deleteProveedor)
+router.delete('/proveedores/:id', deleteProveedores)
 
 export default router
