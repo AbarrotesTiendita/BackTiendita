@@ -1,31 +1,34 @@
 import { pool } from "../db.js";
-import crypto from "crypto"
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const login = async (req, resp,) => {
-  var Nom_Vendedor = req.body.Nom_Vendedor;
-  var Contraseña = req.body.Contraseña;
+export const login = async (req, resp) => {
+  const nom_vendedor = req.body.nom_vendedor;
+  const password = req.body.password;
 
   pool.query(
-    "select * from vendedor where Nom_Vendedor = ? and Contraseña = sha1(?)",
-    [Nom_Vendedor, Contraseña],
-    (err, rows, fields) => {
-      console.log(rows);
+    "SELECT * FROM vendedor WHERE nom_vendedor = ?",
+    [nom_vendedor],
+    async (err, rows, fields) => {
       if (!err) {
-        const hash = crypto.createHash("sha1").update(Contraseña).digest("hex");
-        if (
-          rows.length == 1 &&
-          rows[0].Nom_Vendedor == Nom_Vendedor &&
-          rows[0].Contraseña == hash
-        ) {
-          const user = rows[0];
-          jwt.sign(
-            { user: user },
-            "accessKey",
-            (err, token) => {
-              resp.json({ token: token });
-            }
-          );
+        if (rows.length === 1) {
+          const match = await bcrypt.compare(password, rows[0].contraseña);
+          if (match) {
+            const user = rows[0];
+            jwt.sign(
+              { user: user },
+              "accessKey",
+              (err, token) => {
+                if (err) {
+                  resp.sendStatus(500);
+                } else {
+                  resp.json({ token: token });
+                }
+              }
+            );
+          } else {
+            resp.sendStatus(403);
+          }
         } else {
           resp.sendStatus(403);
         }
@@ -37,3 +40,4 @@ export const login = async (req, resp,) => {
 };
 
 export default login;
+
