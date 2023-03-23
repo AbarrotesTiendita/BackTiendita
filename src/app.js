@@ -6,7 +6,7 @@ import indexRoutes from './routes/index.routes.js'
 import ventasRoutes from './routes/ventas.routes.js'
 import reporteRoutes from './routes/reporte.routes.js'
 import usuariosRoutes from './routes/usuarios.routes.js'
-import loginRoutes from './routes/usuarios.routes'  
+import loginRoutes from './routes/usuarios.routes.js'  
 
 const app = express()
 
