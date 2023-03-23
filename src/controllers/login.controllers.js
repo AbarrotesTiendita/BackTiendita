@@ -2,7 +2,7 @@ import { pool } from "../db.js";
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
-export const login = async (req, res) => {
+export const login = async (req, resp) => {
   var Nom_Vendedor = req.body.Nom_Vendedor;
   var Contraseña = req.body.Contraseña;
 
