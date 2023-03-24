@@ -1,8 +1,7 @@
 import { pool } from "../db.js";
-import crypto from "crypto"
-import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
-export const login = async (req, resp,) => {
+/* export const login = async (req, resp,) => {
   var Nom_Vendedor = req.body.Nom_Vendedor;
   var Contraseña = req.body.Contraseña;
 
@@ -34,6 +33,26 @@ export const login = async (req, resp,) => {
       }
     }
   );
+}; */
+
+
+export const login = async (req, res) => {
+  const user = req.body.Nom_Vendedor;
+  const pass = req.body.Contraseña;
+  if (user && pass) {
+    pool.query("SELECT * FROM vendedor where Nom_Vendedor = ?", [user], async (error, results) => {
+      if (results.length == 0 || !(await bcryptjs.compare(pass, results[0].pass))) {
+        res.status(401).send("Usuario y/o Contraseña Incorrecta");
+      } else {
+        req.session.loggedin = true;
+        req.session.name = results[0].name;
+        res.status(200).send("Login Correcto");
+      }
+    });
+  } else {
+    res.status(400).send("Por favor ingrese usuario y/o contraseña");
+  }
 };
 
 export default login;
+
