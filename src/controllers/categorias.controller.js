@@ -17,7 +17,7 @@ export const postCategorias = async (req, res) => {
     const [rows] = await pool.query('INSERT INTO categoria (Nom_Categoria, Descripcion_Categoria) VALUES (?, ?)', [Nom_Categoria, Descripcion_Categoria])
     res.send({
         id: rows.insertId,
-        Nom_Categoria, 
+        Nom_Categoria,
         Descripcion_Categoria
     })
     } catch (error) {
