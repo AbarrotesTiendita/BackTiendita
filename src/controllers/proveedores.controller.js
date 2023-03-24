@@ -68,6 +68,6 @@ export const deleteProveedores = async (req, res) => {
 } catch (error) {
     return res.sendStatus(500).json({
         message:'Algo salio mal'
-    }) 
+    })
 }
 } 
