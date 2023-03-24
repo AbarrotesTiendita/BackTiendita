@@ -16,7 +16,6 @@ app.use('/api',categoriaRoutes)
 app.use('/api',ventasRoutes)
 app.use('/api',reporteRoutes)
 app.use('/api',loginRoutes)
-app.use('/api',usuariosRoutes)
 app.use(indexRoutes)
 
 export default app
