@@ -1,5 +1,5 @@
 import { pool } from "../db.js";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcrypt";
 
 /* export const login = async (req, resp,) => {
   var Nom_Vendedor = req.body.Nom_Vendedor;
