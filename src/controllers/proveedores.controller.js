@@ -40,3 +40,34 @@ export const postProveedores = async (req, res) => {
         })
     }
 }
+
+export const putProveedores = async (req, res) => {
+    const {idProveedor} = req.params
+    const {Nom_Proveedor, Contacto} = req.body
+    try {
+        const [result] = await pool.query('UPDATE proveedor SET Nom_Proveedor = IFNULL(?, Nom_Proveedor), Contacto = IFNULL(?, Contacto) WHERE idProveedor = ?', [Nom_Proveedor, Contacto, idProveedor])
+        console.log(result)
+        if(result === 0) return res.status(404).json({
+            message:'Proveedor no actualizado'
+        })
+        res.status('Actualizado')
+    } catch (error) {
+        return res.send(500).json({
+            message: 'Algo salio mal'
+        })
+    }
+}
+
+export const deleteProveedores = async (req, res) => {
+    try {
+        const result = await pool.query('DELETE FROM proveedor WHERE idProveedor = ?', [req.params.id])
+    if (result.affectedRows <= 0) return res.status(404).json({
+        message: 'Proveedor no encontrado'
+    })
+    res.sendStatus(204)
+} catch (error) {
+    return res.sendStatus(500).json({
+        message:'Algo salio mal'
+    })
+}
+} 
