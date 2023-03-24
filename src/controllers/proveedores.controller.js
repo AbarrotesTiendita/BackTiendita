@@ -65,9 +65,9 @@ export const deleteProveedores = async (req, res) => {
         message: 'Proveedor no encontrado'
     })
     res.sendStatus(204)
-} catch (error) {
-    return res.sendStatus(500).json({
-        message:'Algo salio mal'
-    })
-}
+    } catch (error) {
+        return res.sendStatus(500).json({
+            message:'Algo salio mal'
+        })
+    }
 } 
