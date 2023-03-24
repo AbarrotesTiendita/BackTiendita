@@ -1,5 +1,5 @@
 import { pool } from "../db.js";
-import bcryptjs from "bcrypt";
+import bcrypt from "bcrypt";
 
 /* export const login = async (req, resp,) => {
   var Nom_Vendedor = req.body.Nom_Vendedor;
@@ -41,11 +41,11 @@ export const login = async (req, res) => {
   const pass = req.body.Contraseña;
   if (user && pass) {
     pool.query("SELECT * FROM vendedor where Nom_Vendedor = ?", [user], async (error, results) => {
-      if (results.length == 0 || !(await bcryptjs.compare(pass, results[0].pass))) {
+      if (results.length == 0 || !(await bcrypt.compare(pass, results[0].Contraseña))) {
         res.status(401).send("Usuario y/o Contraseña Incorrecta");
       } else {
         req.session.loggedin = true;
-        req.session.name = results[0].name;
+        req.session.Nom_Vendedor = results[0].Nom_Vendedor;
         res.status(200).send("Login Correcto");
       }
     });
