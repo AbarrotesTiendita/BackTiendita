@@ -36,23 +36,38 @@ import bcrypt from "bcrypt";
 }; */
 
 
-export const login = async (req, res) => {
-  const user = req.body.Nom_Vendedor;
-  const pass = req.body.Contraseña;
-  if (user && pass) {
-    pool.query("SELECT * FROM vendedor where Nom_Vendedor = ?", [user], async (error, results) => {
-      if (results.length == 0 || !(await bcrypt.compare(pass, results[0].Contraseña))) {
-        res.status(401).send("Usuario y/o Contraseña Incorrecta");
-      } else {
-        req.session.loggedin = true;
-        req.session.Nom_Vendedor = results[0].Nom_Vendedor;
-        res.status(200).send("Login Correcto");
-      }
-    });
-  } else {
-    res.status(400).send("Por favor ingrese usuario y/o contraseña");
-  }
-};
+export const login = async  (req, res) => {
+  const { Nom_Vendedor, Contraseña } = req.body;
+
+  // Consulta para recuperar el idVendedor y la Contraseña correspondientes al Nom_Vendedor
+  const query = `SELECT idVendedor, Contraseña FROM vendedor WHERE Nom_Vendedor = '${Nom_Vendedor}'`;
+
+  connection.query(query, (error, results, fields) => {
+    if (error) throw error;
+
+    if (results.length === 0) {
+      res.status(401).json({ error: 'El nombre de usuario o la contraseña son incorrectos' });
+      return;
+    }
+
+    const idVendedor = results[0].idVendedor;
+    const storedPassword = results[0].Contraseña;
+
+    if (Contraseña !== storedPassword) {
+      res.status(401).json({ error: 'El nombre de usuario o la contraseña son incorrectos' });
+      return;
+    }
+
+    // Si la autenticación es exitosa, generar un token de autenticación
+    const token = generateAuthToken(idVendedor);
+    res.json({ token });
+  });
+}
+
+// Función para generar un token de autenticación simple
+function generateAuthToken(idVendedor) {
+  return `Bearer ${idVendedor}`;
+}
 
 export default login;
 
