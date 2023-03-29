@@ -1,5 +1,40 @@
 import { pool } from "../db.js";
-/*import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
+
+export const Login = async (req, res) => {
+  var user= req.body.Nom_Vendedor;
+  var pass = req.body.Contraseña;
+
+  if (!user || !pass) {
+    res.status(400).json({ error: 'Usuario y contraseña son requeridos' });
+    return;
+  }
+
+  try {
+    // Consultar la base de datos para obtener el usuario
+    const [results] = await pool.query('SELECT * FROM vendedor WHERE Nom_Vendedor = ?', [user]);
+
+    if (results.length === 0) {
+      res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+      return;
+    }
+
+    // Verificar la contraseña
+    const match = await bcryptjs.compare(pass, results[0].Contraseña);
+
+    if (!match) {
+      res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+      return;
+    }
+
+    res.json({ message: 'Inicio de sesión exitoso' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+}
+
 
 /* export const login = async (req, resp,) => {
   var Nom_Vendedor = req.body.Nom_Vendedor;
@@ -33,10 +68,10 @@ import { pool } from "../db.js";
       }
     }
   );
-}; */
+};  */
 
 
-export const login = async  (req, res) => {
+/*export const login = async  (req, res) => {
   const { Nom_Vendedor, Contraseña } = req.body;
 
   // Consulta para recuperar el idVendedor y la Contraseña correspondientes al Nom_Vendedor
@@ -67,7 +102,7 @@ export const login = async  (req, res) => {
 // Función para generar un token de autenticación simple
 function generateAuthToken(idVendedor) {
   return `Bearer ${idVendedor}`;
-}
+} */
 
 export default login;
 
