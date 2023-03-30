@@ -5,6 +5,8 @@ const router = Router()
 
 router.get('/categorias', getCartegorias)
 
+router.get('/categoria/:id', getCartegoria)
+
 router.post('/categorias', postCategorias)
 
 router.delete('/categoria/:id', deleteCategoria)

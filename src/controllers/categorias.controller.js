@@ -11,6 +11,17 @@ export const getCartegorias = async (req, res) => {
     }
 }
 
+export const getCartegoria = async (req, res) => {
+    try {
+    const [rows] = await pool.query('SELECT * FROM categoria where idCategoria = ?')
+    res.json(rows)
+    }   catch (error){
+            return res.status(500).json({
+                message:'Algo salio mal'
+        })
+    }
+}
+
 export const postCategorias = async (req, res) => {
     const {Nom_Categoria, Descripcion_Categoria} = req.body
     try {
