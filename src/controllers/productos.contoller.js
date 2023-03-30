@@ -49,14 +49,15 @@ export const getProducto = async (req, res) => {
 }
 
 export const postProductos = async (req, res) => {
-    const {Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria} = req.body
+    const {Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Unidad, Stock, idProveedor, idCategoria} = req.body
     try {
-    const [rows] = await pool.query('insert into producto (Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria) values(?, ?, ?, ?, ?, ?, ?)',[Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria])
+    const [rows] = await pool.query('insert into producto (Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Unidad ,Stock, idProveedor, idCategoria) values(?, ?, ?, ?, ?, ?, ?, ?)',[Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Unidad, Stock, idProveedor, idCategoria])
     res.send({
         Codigo, 
         Nom_Producto, 
         Precio_Compra, 
-        Precio_Venta, 
+        Precio_Venta,
+        Unidad, 
         Stock, 
         idProveedor, 
         idCategoria
