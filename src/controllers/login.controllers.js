@@ -1,3 +1,4 @@
+
 import { pool } from "../db.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
@@ -36,5 +37,5 @@ export const login = async (req, resp) => {
   );
 }; 
 
-export default login;
+// export default login;
 
