@@ -12,7 +12,7 @@ router.patch('/ventas/:idVenta', putVentas)
 router.get('/ventas', getVentas)
 
 router.get('/dias', getDias)
-
+  
 router.get('/total', getTotal)
 
 export default router  
