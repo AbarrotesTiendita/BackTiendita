@@ -37,5 +37,5 @@ export const login = async (req, resp) => {
   );
 }; 
 
-// export default login;
+export default login;
 
