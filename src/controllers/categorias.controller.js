@@ -11,7 +11,7 @@ export const getCartegorias = async (req, res) => {
     }
 }
 
-export const getCartegoria = async (req, res) => {
+export const getCategoria = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT * FROM categoria where idCategoria = ?')
     res.json(rows)
