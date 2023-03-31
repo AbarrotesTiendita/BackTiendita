@@ -49,14 +49,15 @@ export const getProducto = async (req, res) => {
 }
 
 export const postProductos = async (req, res) => {
-    const {Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria} = req.body
+    const {Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Unidad, Stock, idProveedor, idCategoria} = req.body
     try {
-    const [rows] = await pool.query('insert into producto (Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria) values(?, ?, ?, ?, ?, ?, ?)',[Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria])
+    const [rows] = await pool.query('insert into producto (Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Unidad ,Stock, idProveedor, idCategoria) values(?, ?, ?, ?, ?, ?, ?, ?)',[Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Unidad, Stock, idProveedor, idCategoria])
     res.send({
         Codigo, 
         Nom_Producto, 
         Precio_Compra, 
-        Precio_Venta, 
+        Precio_Venta,
+        Unidad, 
         Stock, 
         idProveedor, 
         idCategoria
@@ -70,9 +71,9 @@ export const postProductos = async (req, res) => {
 
 export const putProductos = async (req, res) => {
     const {Codigo} = req.params
-    const {Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria} = req.body
+    const {Nom_Producto, Precio_Compra, Precio_Venta, Unidad, Stock, idProveedor, idCategoria} = req.body
     try {
-    const [result] = await pool.query('UPDATE producto SET Nom_Producto = IFNULL(?, Nom_Producto), Precio_Compra = IFNULL(?, Precio_Compra), Precio_Venta = IFNULL(?, Precio_Venta), Stock = IFNULL(?, Stock), idProveedor = IFNULL(?, idProveedor), idCategoria = IFNULL(?, idCategoria) WHERE Codigo = ?', [Nom_Producto, Precio_Compra, Precio_Venta, Stock, idProveedor, idCategoria, Codigo])
+    const [result] = await pool.query('UPDATE producto SET Nom_Producto = IFNULL(?, Nom_Producto), Precio_Compra = IFNULL(?, Precio_Compra), Precio_Venta = IFNULL(?, Precio_Venta), Unidad = IFNULL(?, Unidad), Stock = IFNULL(?, Stock), idProveedor = IFNULL(?, idProveedor), idCategoria = IFNULL(?, idCategoria) WHERE Codigo = ?', [Nom_Producto, Precio_Compra, Precio_Venta, Unidad, Stock, idProveedor, idCategoria, Codigo])
     console.log(result)
     if(result === 0) return res.status(404).json({
         message:'Producto no actualizado'

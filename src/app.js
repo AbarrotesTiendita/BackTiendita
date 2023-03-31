@@ -5,6 +5,7 @@ import categoriaRoutes from './routes/categoria.routes.js'
 import indexRoutes from './routes/index.routes.js'
 import ventasRoutes from './routes/ventas.routes.js'
 import reporteRoutes from './routes/reporte.routes.js'
+<<<<<<< HEAD
 import proveedoresRoutes from './routes/proveedores.routes.js'
 
 
@@ -14,6 +15,11 @@ import { pool } from "./db.js";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
+=======
+import loginRoutes from './routes/usuarios.routes.js'
+import proveedoresRoutes from './routes/proveedores.routes.js'
+
+>>>>>>> 026f148b23fb01bdb31c3ae2d6503473dd584585
 
 const app = express()
 app.use(cors());
@@ -23,6 +29,10 @@ app.use('/api',productosRoutes)
 app.use('/api',categoriaRoutes)
 app.use('/api',ventasRoutes)
 app.use('/api',reporteRoutes)
+<<<<<<< HEAD
+=======
+app.use('/api',loginRoutes)
+>>>>>>> 026f148b23fb01bdb31c3ae2d6503473dd584585
 app.use('/api', proveedoresRoutes)
 app.use(indexRoutes)
 

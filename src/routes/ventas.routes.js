@@ -15,4 +15,4 @@ router.get('/dias', getDias)
   
 router.get('/total', getTotal)
 
-export default router
+export default router  
