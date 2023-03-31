@@ -3,11 +3,11 @@ import { pool } from "../db.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
-export const login = (req, resp) => {
+export const login = async(req, resp) => {
   var username = req.body.Nom_Vendedor;
   var pass = req.body.Contraseña;
 
-  pool.query("select * from vendedor where Nom_Vendedor=? and Contraseña = sha1(?)",[username,pass],(err,rows,fields)=>{
+  await pool.query("select * from vendedor where Nom_Vendedor=? and Contraseña = sha1(?)",[username,pass],(err,rows,fields)=>{
     console.log(rows);
     if(!err){
       const hash = crypto.createHash("sha1").update(pass).digest("hex");
