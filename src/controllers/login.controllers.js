@@ -14,7 +14,16 @@ export const login = async (req, res) => {
       const user = rows[0];
       jwt.sign({ user: user }, "accesKey", { expiresIn: "24h" }, (err, token) => {
         if (err) throw err;
-        res.json({ token: token });
+        const response = { 
+          token: token,
+          user: {
+            id: user.idVendedor,
+            username: user.Nom_Vendedor,
+            idPermisos : user.idVendedor_Permisos
+            
+          }
+        };
+        res.json(response);
       });
     } else {
       res.status(403).json({ error: "Credenciales inválidas" });
@@ -25,4 +34,3 @@ export const login = async (req, res) => {
   }
 };
 
-export default login;
