@@ -1,6 +1,6 @@
 import { pool } from '../db.js'
 
-export const getCartegorias = async (req, res) => {
+export const getCategorias = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT * FROM categoria')
     res.json(rows)
@@ -11,7 +11,21 @@ export const getCartegorias = async (req, res) => {
     }
 }
 
-export const getCartegoria = async (req, res) => {
+export const getCategoriaa = async (req, res) => {
+    try {
+    const [rows] = await pool.query('SELECT * FROM categoria where Nom_Categoria = ?;', [req.params.id])
+    if (rows.length <= 0) return res.status(404).json({
+        message: 'El producto no existe'
+    })
+    res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
+export const getCategoria = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT * FROM categoria where idCategoria = ?', [req.params.id])
     if (rows.length <= 0) return res.status(404).json({
