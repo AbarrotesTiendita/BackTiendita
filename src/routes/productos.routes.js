@@ -1,9 +1,11 @@
 import { Router } from 'express'
-import { getProductos, getProducto, getInvercion, getAprox, putProductos, deleteProductos, postProductos } from '../controllers/productos.contoller.js'
+import { getProductos, getProductoss, getProducto, getInvercion, getAprox, putProductos, deleteProductos, postProductos } from '../controllers/productos.contoller.js'
 
 const router = Router()
 
 router.get('/productos', getProductos)
+
+router.get('/productoss', getProductoss)
 
 router.get('/producto/:id', getProducto)
 

@@ -1,4 +1,4 @@
-import { pool } from '../db.js'
+        import { pool } from '../db.js'
 
 export const getInvercion = async (req, res) => {
     try {
@@ -34,6 +34,17 @@ export const getProductos = async (req, res) => {
     }
 }
 
+export const getProductoss = async (req, res) => {
+    try {
+    const [rows] = await pool.query('SELECT producto.Codigo, producto.Nom_Producto, producto.Precio_Compra, producto.Precio_Venta, producto.Unidad, producto.Stock, categoria.Nom_Categoria, proveedor.Nom_Proveedor FROM producto INNER JOIN categoria ON producto.idCategoria = categoria.idCategoria INNER JOIN proveedor ON producto.idProveedor = proveedor.idProveedor')
+    res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
 export const getProducto = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT * FROM producto WHERE Codigo = ?', [req.params.id])
@@ -47,6 +58,7 @@ export const getProducto = async (req, res) => {
         })
     }
 }
+
 
 export const postProductos = async (req, res) => {
     const {Codigo, Nom_Producto, Precio_Compra, Precio_Venta, Unidad, Stock, idProveedor, idCategoria} = req.body

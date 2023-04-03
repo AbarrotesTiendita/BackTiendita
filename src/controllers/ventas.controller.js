@@ -13,14 +13,17 @@ export const getActuales = async (req, res) => {
 
 export const getVentas = async (req, res) => {
     try {
-    const [rows] = await pool.query('SELECT count(*) +1 AS Ventas FROM venta')
-    res.json(rows)
+        const [rows] = await pool.query('SELECT MAX(idVenta) FROM venta');
+        const lastId = rows[0]['MAX(idVenta)'];
+        res.json({ last_id: lastId });
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
-            message:'Algo salio mal'
-        })
+            message: 'Algo salió mal'
+        });
     }
-}
+};
+
 
 export const getDias = async (req, res) => {
     try {
@@ -50,10 +53,27 @@ export const postVentas = async (req, res) => {
         const [rows] = await pool.query('INSERT INTO venta (idVendedor, fecha, hora, Total) VALUES (?, CURDATE(), CURRENT_TIME(), ?)', [idVendedor, Total])
         console.log(rows);
         res.send({
-            id: rows.insertId,
+            idVenta: rows.insertId,
             idVendedor,
             Total
         })
+    } catch (error) { 
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
+
+
+export const postDetalleVentas = async (req, res) => {
+    const {idVenta, Codigo, Nom_producto, Cantidad, Precio_compra, Precio_venta} = req.body
+    try {
+        const [rows] = await pool.query('INSERT INTO detalle_venta (idVenta,Codigo, Nom_producto, Cantidad, Precio_compra, Precio_venta) VALUES (?, ?, ?, ?, ?, ?)', [idVenta,Codigo, Nom_producto, Cantidad, Precio_compra, Precio_venta])
+        console.log(rows);
+        res.send(
+            "producto insertado correctament"
+        )
     } catch (error) { 
         return res.status(500).json({
             message:'Algo salio mal'
