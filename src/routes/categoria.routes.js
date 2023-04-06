@@ -9,7 +9,7 @@ router.get('/categoria/:id', getCategoria)
 
 router.get('/categoriass/:id', getCategoriaa)
 
-router.patch('/categoria/:idCategoria', putCategoria)
+router.patch('/categoriact/:idCategoria', putCategoria)
 
 router.post('/categorias', postCategorias)
 
