@@ -25,6 +25,23 @@ export const getCategoriaa = async (req, res) => {
     }
 }
 
+export const putCategoria = async (req, res) => {
+    const {idCategoria} = req.params
+    const {Nom_Categoria, Descripcion_Categoria} = req.body
+    try {
+    const [result] = await pool.query('UPDATE categoria SET Nom_Categoria = IFNULL(?, Nom_Categoria), Descripcion_Categoria = IFNULL(?, Descripcion_Categoria) WHERE idCategoria = ?', [Nom_Categoria, Descripcion_Categoria, idCategoria])
+    console.log(result)
+    if(result === 0) return res.status(404).json({
+        message:'Producto no actualizado'
+    })
+    res.json('Actualizado')
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
 export const getCategoria = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT * FROM categoria where idCategoria = ?', [req.params.id])
