@@ -11,7 +11,7 @@ router.post('/vendedores', postVendedores)
 
 router.patch('/vendedores/:idVendedor', putVendedores)
 
-router.patch('/permisos/:idVendedor', putPermisos)
+router.patch('/permisos/', putPermisos)
 
 router.delete('/vendedores/:id', deleteVendedores)
 
