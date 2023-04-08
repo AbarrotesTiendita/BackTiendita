@@ -1,8 +1,10 @@
 import { Router } from 'express'
-import { postEntrada } from '../controllers/caja.controller.js'
+import { getCajas, postEntrada } from '../controllers/caja.controller.js'
 
 const router = Router()
 
 router.post('/entrada', postEntrada)
+
+router.get('/caja', getCajas)
 
 export default router

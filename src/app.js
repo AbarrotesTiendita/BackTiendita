@@ -10,7 +10,6 @@ import loginRoutes from './routes/usuarios.routes.js'
 import proveedoresRoutes from './routes/proveedores.routes.js'
 import cajaRoutes from './routes/caja.routes.js'
 
-
 const app = express()
 app.use(cors());
 app.use(express.json())

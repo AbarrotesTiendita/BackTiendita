@@ -11,6 +11,37 @@ export const getCategorias = async (req, res) => {
     }
 }
 
+export const getCategoriaa = async (req, res) => {
+    try {
+    const [rows] = await pool.query('SELECT * FROM categoria where Nom_Categoria = ?;', [req.params.id])
+    if (rows.length <= 0) return res.status(404).json({
+        message: 'El producto no existe'
+    })
+    res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
+export const putCategoriact = async (req, res) => {
+    const {idCategoria} = req.params
+    const {Nom_Categoria, Descripcion_Categoria} = req.body
+    try {
+    const [result] = await pool.query('UPDATE categoria SET Nom_Categoria = IFNULL(?, Nom_Categoria), Descripcion_Categoria = IFNULL(?, Descripcion_Categoria) WHERE idCategoria = ?', [Nom_Categoria, Descripcion_Categoria, idCategoria])
+    console.log(result)
+    if(result === 0) return res.status(404).json({
+        message:'Categoria no actualizada'
+    })
+    res.json('Actualizado')
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
 export const getCategoria = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT * FROM categoria where idCategoria = ?', [req.params.id])
