@@ -1,5 +1,38 @@
 import { pool } from '../db.js'
 
+export const getDVentas = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT v.*, dv.* FROM venta v JOIN detalle_venta dv ON v.idVenta = dv.idVenta WHERE v.fecha = curdate()')
+        res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
+export const getSVentas = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT v.*, dv.* FROM venta v JOIN detalle_venta dv ON v.idVenta = dv.idVenta WHERE YEARWEEK(v.fecha) = YEARWEEK(CURDATE())')
+        res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
+export const getMVentas = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT v.*, dv.* FROM venta v JOIN detalle_venta dv ON v.idVenta = dv.idVenta WHERE MONTH(v.fecha) = MONTH(CURDATE())')
+        res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
 export const getActuales = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT SUM(Total) AS Ganancias FROM venta WHERE fecha = CURDATE()')
