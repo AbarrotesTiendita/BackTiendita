@@ -28,3 +28,14 @@ export const getCajas = async (req, res) => {
         })
     }
 }
+
+export const getTodoCajas = async (req, res) => {
+    try {
+    const [rows] = await pool.query('SELECT caja.*, operacion.Tipo_Operación as Nombre_Operación, vendedor.Nom_Vendedor FROM caja JOIN operacion ON caja.idOperacion = operacion.idOperacion JOIN vendedor ON caja.idVendedor = vendedor.idVendedor WHERE caja.fecha = CURDATE();')
+    res.json(rows)
+    }   catch (error){
+            return res.status(500).json({
+                message:'Algo salio mal'
+        })
+    }
+}
