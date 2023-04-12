@@ -26,9 +26,9 @@ export const getVendedor = async (req, res) => {
 }
 
 export const postVendedores = async (req, res) => {
-    const {Nom_Vendedor, Contraseña} = req.body
+    const {idVendedor_Permisos,Nom_Vendedor, Contraseña} = req.body
     try {
-    const [rows] = await pool.query('INSERT INTO vendedor (Nom_Vendedor, Contraseña) VALUES (?, sha1(?))', [Nom_Vendedor, Contraseña])
+    const [rows] = await pool.query('insert into vendedor (idVendedor_Permisos, Nom_Vendedor, Contraseña)  VALUES (?, ?, sha1(?))', [idVendedor_Permisos, Nom_Vendedor, Contraseña])
     res.send({
         id: rows.insertId,
         Nom_Vendedor,
