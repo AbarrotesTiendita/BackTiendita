@@ -26,9 +26,9 @@ export const getVendedor = async (req, res) => {
 }
 
 export const postVendedores = async (req, res) => {
-    const {Nom_Vendedor, Contraseña} = req.body
+    const {idVendedor_Permisos,Nom_Vendedor, Contraseña} = req.body
     try {
-    const [rows] = await pool.query('INSERT INTO vendedor (Nom_Vendedor, Contraseña) VALUES (?, sha1(?))', [Nom_Vendedor, Contraseña])
+    const [rows] = await pool.query('insert into vendedor (idVendedor_Permisos, Nom_Vendedor, Contraseña)  VALUES (?, ?, sha1(?))', [idVendedor_Permisos, Nom_Vendedor, Contraseña])
     res.send({
         id: rows.insertId,
         Nom_Vendedor,
@@ -77,15 +77,15 @@ export const putPermisos = async (req, res) => {
 
 export const deleteVendedores = async (req, res) => {
     try {
-    const [result] = await pool.query('DELETE FROM vendedor WHERE idVendedor = ?', [req.params.id])
-    console.log(result);
+    const result = await pool.query('DELETE FROM vendedor WHERE idVendedor = ?', [req.params.id])
     if (result.affectedRows <= 0) return res.status(404).json({
         message: 'Vendedor no encontrado'
     })
     res.sendStatus(204)
     } catch (error) {
         return res.status(500).json({
-            message:'Algo salio mal'
+            message:'Algo salio mal',
+            error :error
         }) 
     }
-}    
+} 
