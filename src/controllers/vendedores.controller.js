@@ -59,7 +59,7 @@ export const putVendedores = async (req, res) => {
 }
 
 export const putPermisos = async (req, res) => {
-    const {idVendedor} = req.body
+    const {idVendedor} = req.params
     const {idVendedor_Permisos} = req.body
     try {
     const [result] = await pool.query('UPDATE vendedor SET idVendedor_Permisos = ? WHERE idVendedor = ?', [idVendedor_Permisos, idVendedor])
@@ -82,7 +82,7 @@ export const deleteVendedores = async (req, res) => {
     if (result.affectedRows <= 0) return res.status(404).json({
         message: 'Vendedor no encontrado'
     })
-    res.send('Vendedor eliminado')
+    res.sendStatus(204)
     } catch (error) {
         return res.status(500).json({
             message:'Algo salio mal'
