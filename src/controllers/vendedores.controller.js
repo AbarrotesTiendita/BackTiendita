@@ -77,11 +77,12 @@ export const putPermisos = async (req, res) => {
 
 export const deleteVendedores = async (req, res) => {
     try {
-    const result = await pool.query('DELETE FROM vendedor WHERE idVendedor = ?', [req.params.id])
+    const [result] = await pool.query('DELETE FROM vendedor WHERE idVendedor = ?', [req.params.id])
+    console.log(result);
     if (result.affectedRows <= 0) return res.status(404).json({
         message: 'Vendedor no encontrado'
     })
-    res.sendStatus(204)
+    res.send('Vendedor eliminado')
     } catch (error) {
         return res.status(500).json({
             message:'Algo salio mal'
