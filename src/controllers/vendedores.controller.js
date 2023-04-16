@@ -26,9 +26,9 @@ export const getVendedor = async (req, res) => {
 }
 
 export const postVendedores = async (req, res) => {
-    const {Nom_Vendedor, Contraseña} = req.body
+    const {idVendedor_Permisos,Nom_Vendedor, Contraseña} = req.body
     try {
-    const [rows] = await pool.query('INSERT INTO vendedor (Nom_Vendedor, Contraseña) VALUES (?, sha1(?))', [Nom_Vendedor, Contraseña])
+    const [rows] = await pool.query('insert into vendedor (idVendedor_Permisos, Nom_Vendedor, Contraseña)  VALUES (?, ?, sha1(?))', [idVendedor_Permisos, Nom_Vendedor, Contraseña])
     res.send({
         id: rows.insertId,
         Nom_Vendedor,
@@ -59,7 +59,7 @@ export const putVendedores = async (req, res) => {
 }
 
 export const putPermisos = async (req, res) => {
-    const {idVendedor} = req.body
+    const {idVendedor} = req.params
     const {idVendedor_Permisos} = req.body
     try {
     const [result] = await pool.query('UPDATE vendedor SET idVendedor_Permisos = ? WHERE idVendedor = ?', [idVendedor_Permisos, idVendedor])
@@ -84,7 +84,8 @@ export const deleteVendedores = async (req, res) => {
     res.sendStatus(204)
     } catch (error) {
         return res.status(500).json({
-            message:'Algo salio mal'
+            message:'Algo salio mal',
+            error :error
         }) 
     }
 } 

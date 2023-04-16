@@ -8,7 +8,7 @@ import ventasRoutes from './routes/ventas.routes.js'
 import reporteRoutes from './routes/reporte.routes.js'
 import loginRoutes from './routes/usuarios.routes.js'
 import proveedoresRoutes from './routes/proveedores.routes.js'
-
+import cajaRoutes from './routes/caja.routes.js'
 
 const app = express()
 app.use(cors());
@@ -20,8 +20,7 @@ app.use('/api',ventasRoutes)
 app.use('/api',reporteRoutes)
 app.use('/api',loginRoutes)
 app.use('/api', proveedoresRoutes)
+app.use('/api', cajaRoutes)
 app.use(indexRoutes)
-
-
 
 export default app
