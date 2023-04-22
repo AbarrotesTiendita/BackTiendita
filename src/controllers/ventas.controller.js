@@ -2,7 +2,7 @@ import { pool } from '../db.js'
 
 export const getDVentas = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT v.*, dv.* FROM venta v JOIN detalle_venta dv ON v.idVenta = dv.idVenta WHERE v.fecha = curdate()')
+        const [rows] = await pool.query('SELECT v.idVenta, v.fecha, SUM(dv.Total) AS Total_Venta, JSON_ARRAYAGG(JSON_OBJECT("Codigo", dv.Codigo, "Nom_producto", dv.Nom_producto, "Cantidad", dv.Cantidad, "Precio_Compra", dv.Precio_Compra, "Precio_Venta", dv.Precio_Venta, "Total", dv.Total, "Ganancia", dv.Ganancia)) AS Productos FROM venta v INNER JOIN detalle_venta dv ON dv.idVenta = v.idVenta WHERE v.fecha = CURDATE() GROUP BY v.idVenta, v.fecha')
         res.json(rows)
     } catch (error) {
         return res.status(500).json({
@@ -13,7 +13,7 @@ export const getDVentas = async (req, res) => {
 
 export const getSVentas = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT v.*, dv.* FROM venta v JOIN detalle_venta dv ON v.idVenta = dv.idVenta WHERE YEARWEEK(v.fecha) = YEARWEEK(CURDATE())')
+        const [rows] = await pool.query('SELECT v.idVenta, v.fecha, SUM(dv.Total) AS Total_Venta, JSON_ARRAYAGG(JSON_OBJECT("Codigo", dv.Codigo, "Nom_producto", dv.Nom_producto, "Cantidad", dv.Cantidad, "Precio_Compra", dv.Precio_Compra, "Precio_Venta", dv.Precio_Venta, "Total", dv.Total, "Ganancia", dv.Ganancia)) AS Productos FROM venta v INNER JOIN detalle_venta dv ON dv.idVenta = v.idVenta WHERE WEEK(v.fecha) = WEEK(CURDATE())GROUP BY v.idVenta, v.fecha;')
         res.json(rows)
     } catch (error) {
         return res.status(500).json({
@@ -22,16 +22,7 @@ export const getSVentas = async (req, res) => {
     }
 }
 
-export const getMVentas = async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT v.*, dv.* FROM venta v JOIN detalle_venta dv ON v.idVenta = dv.idVenta WHERE MONTH(v.fecha) = MONTH(CURDATE())')
-        res.json(rows)
-    } catch (error) {
-        return res.status(500).json({
-            message:'Algo salio mal'
-        })
-    }
-}
+
 
 export const getActuales = async (req, res) => {
     try {
@@ -72,6 +63,17 @@ export const getDias = async (req, res) => {
 export const getTotal = async (req, res) => {
     try {
     const [rows] = await pool.query('SELECT sum(Total) from venta where fecha = curdate()')
+    res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
+export const getAllVentas= async (req, res) => {
+    try {
+    const [rows] = await pool.query('SELECT v.idVenta, v.fecha, SUM(dv.Total) AS Total_Venta, JSON_ARRAYAGG(JSON_OBJECT("Codigo", dv.Codigo, "Nom_producto", dv.Nom_producto, "Cantidad", dv.Cantidad, "Precio_Compra", dv.Precio_Compra, "Precio_Venta", dv.Precio_Venta, "Total", dv.Total, "Ganancia", dv.Ganancia)) AS Productos FROM venta v INNER JOIN detalle_venta dv ON dv.idVenta = v.idVenta WHERE v.fecha >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH) AND v.fecha <= CURRENT_DATE() GROUP BY v.idVenta, v.fecha;')
     res.json(rows)
     } catch (error) {
         return res.status(500).json({
