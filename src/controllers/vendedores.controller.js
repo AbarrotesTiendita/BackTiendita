@@ -59,8 +59,8 @@ export const putVendedores = async (req, res) => {
 }
 
 export const putPermisos = async (req, res) => {
-    const {idVendedor} = req.params
-    const {idVendedor_Permisos} = req.body
+    
+    const {idVendedor_Permisos ,idVendedor} = req.body
     try {
     const [result] = await pool.query('UPDATE vendedor SET idVendedor_Permisos = ? WHERE idVendedor = ?', [idVendedor_Permisos, idVendedor])
     console.log(result)
