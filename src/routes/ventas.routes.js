@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getActuales, postVentas, putVentas, getVentas, getDias, getTotal, postDetalleVentas, getDVentas, getMVentas, getSVentas } from '../controllers/ventas.controller.js'
+import { getActuales, postVentas, putVentas, getVentas, getDias, getTotal, postDetalleVentas, getDVentas, getSVentas, getAllVentas } from '../controllers/ventas.controller.js'
 
 const router = Router()
 
@@ -19,8 +19,9 @@ router.get('/total', getTotal)
 
 router.get('/dventas', getDVentas)
 
-router.get('/mventas', getMVentas)
 
 router.get('/sventas', getSVentas)
+
+router.get('/allventas', getAllVentas)
 
 export default router  
