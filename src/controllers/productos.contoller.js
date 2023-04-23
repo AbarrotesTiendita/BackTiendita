@@ -2,7 +2,7 @@
 
 export const getInvercion = async (req, res) => {
     try {
-    const [rows]= await pool.query('SELECT SUM(Precio_Compra) AS Invercion FROM producto')
+    const [rows]= await pool.query('SELECT SUM(Precio_Compra * Stock) AS Invercion FROM producto')
     res.json(rows)
     } catch (error) {
         return res.status(500).json({
@@ -14,7 +14,7 @@ export const getInvercion = async (req, res) => {
 
 export const getAprox = async (req, res) => {
     try {
-    const [rows] = await pool.query('SELECT SUM(Precio_Venta) AS Ganacias FROM producto')
+    const [rows] = await pool.query('SELECT SUM(Precio_Venta * Stock) AS Ganacias FROM producto')
     res.json(rows)
     } catch (error) {
         return res.status(500).json({
