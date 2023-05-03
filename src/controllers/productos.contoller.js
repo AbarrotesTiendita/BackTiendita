@@ -100,7 +100,7 @@ export const putProductos = async (req, res) => {
 
 export const deleteProductos = async (req, res) => {
     try {
-    const [result] = await pool.query('DELETE FROM producto WHERE Codigo = ?', [req.params.id])
+    const [result] = await pool.query('DELETE FROM producto WHERE Codigo = ?', [req.params.Codigo])
     if (result.affectedRows <= 0) return res.status(404).json({
         message: 'Producto no encontrado'
     })
