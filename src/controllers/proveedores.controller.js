@@ -26,16 +26,16 @@ export const getProveedor = async (req, res) => {
 }
 
 export const postProveedores = async (req, res) => {
-    const { Nom_Proveedor, Contacto } = req.body
+    const { Nom_Proveedor, Contacto_Proveedor } = req.body
     try {
-        const [rows] = await pool.query('insert into proveedor (Nom_Proveedor, Contacto) values (?, ?)', [Nom_Proveedor, Contacto])
+        const [rows] = await pool.query('insert into proveedor (Nom_Proveedor, Contacto_Proveedor) values (?, ?)', [Nom_Proveedor, Contacto_Proveedor])
         res.json({
             id: rows.insertId,
             Nom_Proveedor, 
-            Contacto
+            Contacto_Proveedor
         })
     } catch (error) {
-        return res.status(505).json({
+        return res.status(500).json({
             message:'Algo salio mal'
         })
     }
@@ -43,9 +43,9 @@ export const postProveedores = async (req, res) => {
 
 export const putProveedores = async (req, res) => {
     const {idProveedor} = req.params
-    const {Nom_Proveedor, Contacto} = req.body
+    const {Nom_Proveedor, Contacto_Proveedor} = req.body
     try {
-    const [result] = await pool.query('UPDATE proveedor SET Nom_Proveedor = IFNULL(?, Nom_Proveedor), Contacto = IFNULL(?, Contacto) WHERE idProveedor = ?', [Nom_Proveedor, Contacto, idProveedor])
+    const [result] = await pool.query('UPDATE proveedor SET Nom_Proveedor = IFNULL(?, Nom_Proveedor), Contacto_Proveedor = IFNULL(?, Contacto_Proveedor) WHERE idProveedor = ?', [Nom_Proveedor, Contacto_Proveedor, idProveedor])
     console.log(result)
     if(result === 0) return res.status(404).json({
         message:'Proveedor no actualizado'
